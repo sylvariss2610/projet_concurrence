@@ -1,0 +1,2 @@
+Main-class: PageIndexer.Main
+Class-Path: ../lib/jsoup-1.12.1.jar

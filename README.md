@@ -1,7 +1,7 @@
 # projet_concurrence
 
 compile à la base du projet : 
-javac -d classes/ -cp lib/jsoup-1.12.1.jar src/pageIndexer/*.java
+javac -d classes/ -cp lib/jsoup-1.12.1.jar src/PageIndexer/*.java
 
 créer jar dans classes :
 jar cmvf ../MANIFEST.MF ../jar/Search.jar PageIndexer/*.class
