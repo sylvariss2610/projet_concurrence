@@ -11,15 +11,15 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 class Index {
 
     private HashSet<URL> index;
-    ReentrantReadWriteLock RRWL = new ReentrantReadWriteLock();
-    private Lock readLock = RRWL.readLock();
-    private Lock writeLock = RRWL.writeLock();
+    ReentrantReadWriteLock ReWrLock = new ReentrantReadWriteLock();
+    private Lock readLock = ReWrLock.readLock();
+    private Lock writeLock = ReWrLock.writeLock();
 
     Index() {
         index = new HashSet<>();
     }
 
-    boolean verify(URL pageURL) {
+    boolean Verification(URL pageURL) {
         this.readLock.lock();
         try {
             if(this.index.contains(pageURL)) {
@@ -32,8 +32,8 @@ class Index {
         }
     }
 
-    void write(URL pageURL) {
-        if (!verify(pageURL)) {
+    void Ecriture(URL pageURL) {
+        if (!Verification(pageURL)) {
             //System.out.println("The page at " + pageURL + " will be verified/scanned.");
             this.writeLock.lock();
             try {

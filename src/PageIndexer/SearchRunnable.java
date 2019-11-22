@@ -28,17 +28,9 @@ class SearchRunnable implements Runnable {
     }
 
     public void run() {
-        //TODO :
-        // (Ok) verify the page -> index.verify(url)
-        // (Ok) -> if not already verified -> add url in index -> index.write(url)
-        // (Ok) get the page
-        // (Ok) extract the text -> HTTP/RegExp
-        // (Ok) verify all words in all lines -> ForEach, lines in page and words in lines
-        // (Ok) print url if equals to wanted word
-        // ()begin search in related pages (links)
-        if (!this.index.verify(this.url)) {
+        if (!this.index.Verification(this.url)) {
             try {
-                this.index.write(this.url);
+                this.index.Ecriture(this.url);
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader(this.url.openStream()));
                 String inputLine;
@@ -52,26 +44,20 @@ class SearchRunnable implements Runnable {
                     }
                     if (this.found) {
                         try {
-                            //System.out.println(this.url.toString());
+                            //Utilisation de Jsoup qui est une librairie Java qui permet de "parse" du HTML
                             Document doc = Jsoup.connect(this.url.toString()).get();
                             if(doc.hasText())
                             {
                                 Elements elements = doc.select("a");
-                                //System.out.println(elements);
-                                //System.out.println(elements.size());
                                 for (Element element : elements) {
                                     if(element.hasAttr("href"))
                                     {
-                                        //System.out.println("url : "+element.attr("href"));
                                         if (!element.attr("href").startsWith("#")) {
-                                            //System.out.println("url : "+element.attr("href"));
                                             if (element.attr("href").startsWith("/")) {
                                                 if (this.url.toString().contains("wikipedia.org")) {
-                                                    //System.out.println();
                                                     this.pool.execute(new SearchRunnable(this.pool,this.index,new URL(("https://fr.wikipedia.org" + element.attr("href"))),this.word));
                                                 }
                                             } else {
-                                                //System.out.println("url : "+element.attr("href"));
                                                 this.pool.execute(new SearchRunnable(this.pool,this.index,new URL((element.attr("href"))),this.word));
                                             }
 
