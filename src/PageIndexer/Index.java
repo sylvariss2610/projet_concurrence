@@ -20,7 +20,6 @@ class Index {
     }
 
     boolean verify(URL pageURL) {
-        //System.out.println("Verifying if the page " + pageURL + "has already been caught.");
         this.readLock.lock();
         try {
             if(this.index.contains(pageURL)) {
